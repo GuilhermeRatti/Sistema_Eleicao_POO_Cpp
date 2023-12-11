@@ -7,8 +7,32 @@ using namespace std;
 
 void CandidatoNominal::registraVoto(const int &votos)
 {
-    this->adicionaVotos(votos);
-    this->getPartido().registraVotosLegenda(votos);
+    try
+    {
+        int votosPreAtualizacao = this->getQtdVotos();
+        this->adicionaVotos(votos);
+
+        if (this->getQtdVotos() != votosPreAtualizacao + votos)
+            throw invalid_argument("Erro ao registrar votos nominais para o candidato nominal " + this->getNomeUrna() + " do partido " + this->getPartido().getSigla() + ".\n");
+    }
+    catch (const invalid_argument &e)
+    {
+        cout << e.what() << endl;
+        exit(1);
+    }
+    
+    try
+    {
+        int votosPreAtualizacao = this->getPartido().getQtdVotosLegenda();
+        this->getPartido().registraVotosLegenda(votos);
+
+        if (this->getPartido().getQtdVotosLegenda() != votosPreAtualizacao + votos)
+            throw invalid_argument("Erro ao registrar votos de legenda para o candidato nominal " + this->getNomeUrna() + " do partido " + this->getPartido().getSigla() + ".\n");
+    }
+    catch (const invalid_argument &e)
+    {
+        exit(1);
+    }
 }
 
 ostream &operator<<(ostream &strm, const CandidatoNominal &c)
