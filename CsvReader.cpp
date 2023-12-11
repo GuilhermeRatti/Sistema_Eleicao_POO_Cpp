@@ -1,7 +1,12 @@
 #include <iostream> // cout
 #include <fstream>  // ifstream
 #include <sstream>  // istringstream
+#include <string>   // getline, string
 #include <map>
+#include <locale>
+#include <algorithm>
+#include <iomanip>
+#include <ctime>
 
 #include "CsvReader.hpp"
 
@@ -24,4 +29,57 @@ void CsvReader::readHeader(const string &header)
     {
         this->colunasIndexes.insert(pair<string, int>(coluna, index));
     }
+}
+
+int stringToInt(const string &str)
+{
+    int i;
+    istringstream iss(str);
+    iss >> i;
+    return i;
+}
+
+void setLocaleInt(){
+    //Configura locale para imprimir números inteiros com separador de milhar e virgula decimal
+    locale brLocale("pt_BR.UTF-8");
+    cout.imbue(brLocale);
+}
+
+/*tm stringToTime(const string &str)
+{
+    tm t;
+    istringstream iss(str);
+    iss >> get_time(&t, "%d/%m/%Y");
+    return t;
+}*/
+
+string removeDoubleQuotes(const string &str)
+{
+    string strOut = str;
+    strOut.erase(remove(strOut.begin(), strOut.end(), '\"'), strOut.end());
+    return strOut;
+}
+
+string iso_8859_1_to_utf8(string &str)
+{
+    // adaptado de: https://stackoverflow.com/a/39884120 :-)
+    string strOut;
+    for (string::iterator it = str.begin(); it != str.end(); ++it)
+    {
+        uint8_t ch = *it;
+        if (ch < 0x80)
+        {
+            // já está na faixa ASCII (bit mais significativo 0), só copiar para a saída
+            strOut.push_back(ch);
+        }
+        else
+        {
+            // está na faixa ASCII-estendido, escrever 2 bytes de acordo com UTF-8
+            // o primeiro byte codifica os 2 bits mais significativos do byte original (ISO-8859-1)
+            strOut.push_back(0b11000000 | (ch >> 6));
+            // o segundo byte codifica os 6 bits menos significativos do byte original (ISO-8859-1)
+            strOut.push_back(0b10000000 | (ch & 0b00111111));
+        }
+    }
+    return strOut;
 }
