@@ -19,13 +19,13 @@ using namespace std;
 
 int main()
 {
-    char colada[] = "the moon is blue";
-    char *holder;
-    holder = strtok(colada," ");
-    while(holder != NULL){
-        string str(holder);
-        cout << str << endl;
-        holder = strtok(NULL," ");
+    string separador = " ";
+    string header = "the moon is blue";
+    istringstream iss(header);
+    string coluna;
+    int index = 0;
+    while (getline(iss, coluna, *separador.c_str()))
+    {
+        cout << coluna << endl;
     }
-    return 0;
 }

@@ -18,6 +18,7 @@ class CsvReader
         CsvReader(const string &separador, const list<string> &colunasDeInteresse);
         void readHeader(const string &header);
         const map<string, any> &readLine(const string &line) const;
+        const vector<string> &split (const string &s) const;
 };
 
 #endif

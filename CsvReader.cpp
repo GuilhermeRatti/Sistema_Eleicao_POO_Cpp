@@ -2,11 +2,13 @@
 #include <fstream>  // ifstream
 #include <sstream>  // istringstream
 #include <string>   // getline, string
+#include <string_view> 
 #include <map>
 #include <locale>
 #include <algorithm>
 #include <iomanip>
 #include <ctime>
+#include <vector>
 
 #include "CsvReader.hpp"
 
@@ -27,11 +29,47 @@ void CsvReader::readHeader(const string &header)
     int index = 0;
     while (getline(iss, coluna, *separador.c_str()))
     {
-        this->colunasIndexes.insert(pair<string, int>(coluna, index));
+        this->colunasIndexes.insert(pair<string, int>(removeDoubleQuotes(coluna), index));
+        index++;
     }
 }
 
-int stringToInt(const string &str)
+const vector<string> &CsvReader::split(const string &s) const
+{
+    vector<string> tokens;
+    string token;
+    istringstream iss(s);
+    while (getline(iss, token, *separador.c_str()))
+    {
+        tokens.push_back(token);
+    }
+    return tokens;
+}
+
+const map<string, any> &CsvReader::readLine(const string &line) const
+{
+    vector<string> tokens = split(line);
+    map<string, any> linha;
+    for (string coluna : colunas)
+    {
+        if(coluna.rfind("CD",0)==0 || coluna.rfind("NR",0)==0 || coluna.rfind("QT",0)==0){
+            linha.insert(pair<string, any>(coluna, stringToInt(tokens[colunasIndexes.find(coluna)->second])));
+            continue;
+        }
+        else if(coluna.rfind("DT",0)==0){
+            // to do
+            continue;
+        }
+        else {
+            linha.insert(pair<string, any>(coluna, tokens[colunasIndexes.find(coluna)->second]));
+            continue;
+        }
+    }
+
+    return linha;
+}
+
+const int stringToInt(const string &str)
 {
     int i;
     istringstream iss(str);
@@ -39,8 +77,9 @@ int stringToInt(const string &str)
     return i;
 }
 
-void setLocaleInt(){
-    //Configura locale para imprimir números inteiros com separador de milhar e virgula decimal
+void setLocaleInt()
+{
+    // Configura locale para imprimir números inteiros com separador de milhar e virgula decimal
     locale brLocale("pt_BR.UTF-8");
     cout.imbue(brLocale);
 }
