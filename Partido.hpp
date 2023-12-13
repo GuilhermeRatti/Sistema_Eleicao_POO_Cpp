@@ -3,13 +3,12 @@
 
 #include <map>
 
-#include "Candidato.hpp"
-
+class Candidato;
 using namespace std;
 
 class Partido
 {
-    map<int, Candidato> candidatos;
+    map<int, Candidato*> candidatos;
     string sigla;
     int numPartido;
     int qtdVotosNominais;
@@ -27,12 +26,12 @@ public:
     const int &getNumPartido() const { return numPartido; }
     const int &getQtdVotosNominais() const { return qtdVotosNominais; }
     const int &getQtdVotosLegenda() const { return qtdVotosLegenda; }
-    const int &getQtdVotosTotais() const { return qtdVotosNominais + qtdVotosLegenda; }
+    const int &getQtdVotosTotais() const;
     const bool &getEstaOrdenado() const { return estaOrdenado; }
     void registraVotosNominais(const int &votos) { qtdVotosNominais += votos; }
     void registraVotosLegenda(const int &votos) { qtdVotosLegenda += votos; }
     void adicionaCandidato(const Candidato &candidato);
-    const map<int, Candidato> &getCandidatos() const { return candidatos; }
+    const map<int, Candidato*> &getCandidatos() const { return candidatos; }
     void ordenaCandidatos();
 
     friend ostream &operator<<(ostream &strm, const Partido &p);

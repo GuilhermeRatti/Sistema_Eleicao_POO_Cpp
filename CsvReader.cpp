@@ -2,7 +2,7 @@
 #include <fstream>  // ifstream
 #include <sstream>  // istringstream
 #include <string>   // getline, string
-#include <string_view> 
+#include <string_view>
 #include <map>
 #include <locale>
 #include <algorithm>
@@ -14,59 +14,11 @@
 
 using namespace std;
 
-CsvReader::CsvReader(const string &separador, const list<string> &colunasDeInteresse) : separador(separador)
+string removeDoubleQuotes(const string &str)
 {
-    for (auto coluna : colunasDeInteresse)
-    {
-        this->colunas.push_back(coluna);
-    }
-}
-
-void CsvReader::readHeader(const string &header)
-{
-    istringstream iss(header);
-    string coluna;
-    int index = 0;
-    while (getline(iss, coluna, *separador.c_str()))
-    {
-        this->colunasIndexes.insert(pair<string, int>(removeDoubleQuotes(coluna), index));
-        index++;
-    }
-}
-
-const vector<string> &CsvReader::split(const string &s) const
-{
-    vector<string> tokens;
-    string token;
-    istringstream iss(s);
-    while (getline(iss, token, *separador.c_str()))
-    {
-        tokens.push_back(token);
-    }
-    return tokens;
-}
-
-const map<string, any> &CsvReader::readLine(const string &line) const
-{
-    vector<string> tokens = split(line);
-    map<string, any> linha;
-    for (string coluna : colunas)
-    {
-        if(coluna.rfind("CD",0)==0 || coluna.rfind("NR",0)==0 || coluna.rfind("QT",0)==0){
-            linha.insert(pair<string, any>(coluna, stringToInt(tokens[colunasIndexes.find(coluna)->second])));
-            continue;
-        }
-        else if(coluna.rfind("DT",0)==0){
-            // to do
-            continue;
-        }
-        else {
-            linha.insert(pair<string, any>(coluna, tokens[colunasIndexes.find(coluna)->second]));
-            continue;
-        }
-    }
-
-    return linha;
+    string strOut = str;
+    strOut.erase(remove(strOut.begin(), strOut.end(), '\"'), strOut.end());
+    return strOut;
 }
 
 const int stringToInt(const string &str)
@@ -77,26 +29,20 @@ const int stringToInt(const string &str)
     return i;
 }
 
-void setLocaleInt()
-{
-    // Configura locale para imprimir números inteiros com separador de milhar e virgula decimal
-    locale brLocale("pt_BR.UTF-8");
-    cout.imbue(brLocale);
-}
-
-/*tm stringToTime(const string &str)
-{
-    tm t;
-    istringstream iss(str);
-    iss >> get_time(&t, "%d/%m/%Y");
-    return t;
-}*/
-
-string removeDoubleQuotes(const string &str)
-{
-    string strOut = str;
-    strOut.erase(remove(strOut.begin(), strOut.end(), '\"'), strOut.end());
-    return strOut;
+list<string> setHeaders(){
+    list<string> headers;
+    headers.push_back("CD_CARGO");
+    headers.push_back("CD_SITUACAO_CANDIDATO_TOT");
+    headers.push_back("NR_CANDIDATO");
+    headers.push_back("NM_URNA_CANDIDATO");
+    headers.push_back("NR_PARTIDO");
+    headers.push_back("SG_PARTIDO");
+    headers.push_back("NR_FEDERACAO");
+    headers.push_back("DT_NASCIMENTO");
+    headers.push_back("CD_SIT_TOT_TURNO");
+    headers.push_back("CD_GENERO");
+    headers.push_back("NM_TIPO_DESTINACAO_VOTOS");
+    return headers;
 }
 
 string iso_8859_1_to_utf8(string &str)
@@ -121,4 +67,68 @@ string iso_8859_1_to_utf8(string &str)
         }
     }
     return strOut;
+}
+
+CsvReader::CsvReader(const string &separador, const list<string> &colunasDeInteresse) : separador(separador)
+{
+    for (auto coluna : colunasDeInteresse)
+    {
+        this->colunas.push_back(coluna);
+    }
+}
+
+void CsvReader::readHeader(const string &header)
+{
+    istringstream iss(header);
+    string coluna;
+    int index = 0;
+    while (getline(iss, coluna, *separador.c_str()))
+    {
+        this->colunasIndexes.insert(pair<string, int>(removeDoubleQuotes(coluna), index));
+        index++;
+    }
+}
+
+const vector<string>* CsvReader::split(const string &s) const
+{
+    vector<string> *tokens = new vector<string>();
+    string token;
+    istringstream iss(s);
+    while (getline(iss, token, *separador.c_str()))
+    {
+        (*tokens).push_back(token);
+    }
+    return tokens;
+}
+void setLocaleInt()
+{
+    // Configura locale para imprimir números inteiros com separador de milhar e virgula decimal
+    locale brLocale("pt_BR.UTF-8");
+    cout.imbue(brLocale);
+}
+
+map<string, any>* CsvReader::readLine(const string &line) const
+{
+    setLocaleInt();
+    const vector<string> *tokens = split(line);
+    map<string, any> *linha = new map<string, any>();
+    for (string coluna : colunas)
+    {
+        string str_quoteless = removeDoubleQuotes((*tokens)[colunasIndexes.at(coluna)]);
+
+        if (coluna.rfind("CD", 0) == 0 || coluna.rfind("NR", 0) == 0 || coluna.rfind("QT", 0) == 0)
+        {
+            linha->insert(pair<string, any>(coluna, stringToInt(str_quoteless)));
+            continue;
+        }
+        else
+        {
+            str_quoteless = iso_8859_1_to_utf8(str_quoteless);
+            linha->insert(pair<string, any>(coluna, str_quoteless));
+            continue;
+        }
+    }
+
+    delete tokens;
+    return linha;
 }

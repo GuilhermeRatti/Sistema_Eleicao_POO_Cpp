@@ -3,6 +3,6 @@
 #include <sstream>  // istringstream
 #include <map>
 
-#include "Eleicao.cpp"
+#include "Eleicao.hpp"
 
 using namespace std;

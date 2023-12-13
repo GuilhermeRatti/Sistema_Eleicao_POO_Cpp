@@ -2,6 +2,7 @@
 #include <iostream> // cout
 
 #include "CandidatoNominal.hpp"
+#include "Partido.hpp"
 
 using namespace std;
 
@@ -13,7 +14,7 @@ void CandidatoNominal::registraVoto(const int &votos)
         this->adicionaVotos(votos);
 
         if (this->getQtdVotos() != votosPreAtualizacao + votos)
-            throw invalid_argument("Erro ao registrar votos nominais para o candidato nominal " + this->getNomeUrna() + " do partido " + this->getPartido().getSigla() + ".\n");
+            throw invalid_argument("Erro ao registrar votos nominais para o candidato nominal " + this->getNomeUrna() + " do partido " + this->getPartido()->getSigla() + ".\n");
     }
     catch (const invalid_argument &e)
     {
@@ -23,11 +24,11 @@ void CandidatoNominal::registraVoto(const int &votos)
     
     try
     {
-        int votosPreAtualizacao = this->getPartido().getQtdVotosLegenda();
-        this->getPartido().registraVotosLegenda(votos);
+        int votosPreAtualizacao = this->getPartido()->getQtdVotosLegenda();
+        this->getPartido()->registraVotosLegenda(votos);
 
-        if (this->getPartido().getQtdVotosLegenda() != votosPreAtualizacao + votos)
-            throw invalid_argument("Erro ao registrar votos de legenda para o candidato nominal " + this->getNomeUrna() + " do partido " + this->getPartido().getSigla() + ".\n");
+        if (this->getPartido()->getQtdVotosLegenda() != votosPreAtualizacao + votos)
+            throw invalid_argument("Erro ao registrar votos de legenda para o candidato nominal " + this->getNomeUrna() + " do partido " + this->getPartido()->getSigla() + ".\n");
     }
     catch (const invalid_argument &e)
     {
@@ -47,5 +48,5 @@ ostream &operator<<(ostream &strm, const CandidatoNominal &c)
         flexaoDeVoto = " voto)";
     }
 
-    return strm << asterisco << c.getNomeUrna() << " (" << c.getPartido().getSigla() << ", " << c.getQtdVotos() << flexaoDeVoto;
+    return strm << asterisco << c.getNomeUrna() << " (" << c.getPartido()->getSigla() << ", " << c.getQtdVotos() << flexaoDeVoto;
 }

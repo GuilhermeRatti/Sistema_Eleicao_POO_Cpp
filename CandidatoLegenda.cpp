@@ -3,6 +3,7 @@
 #include <stdexcept>
 
 #include "CandidatoLegenda.hpp"
+#include "Partido.hpp"
 
 using namespace std;
 
@@ -10,11 +11,11 @@ void CandidatoLegenda::registraVoto(const int &votos)
 {
     try
     {
-        int votosPreAtualizacao = this->getPartido().getQtdVotosLegenda();
-        this->getPartido().registraVotosLegenda(votos);
+        int votosPreAtualizacao = this->getPartido()->getQtdVotosLegenda();
+        this->getPartido()->registraVotosLegenda(votos);
 
-        if (this->getPartido().getQtdVotosLegenda() != votosPreAtualizacao + votos)
-            throw invalid_argument("Erro ao registrar votos de legenda para o candidato de legenda " + this->getNomeUrna() + " do partido " + this->getPartido().getSigla() + ".\n");
+        if (this->getPartido()->getQtdVotosLegenda() != votosPreAtualizacao + votos)
+            throw invalid_argument("Erro ao registrar votos de legenda para o candidato de legenda " + this->getNomeUrna() + " do partido " + this->getPartido()->getSigla() + ".\n");
     }
     catch (const invalid_argument &e)
     {
@@ -39,5 +40,5 @@ ostream &operator<<(ostream &strm, const CandidatoLegenda &c)
         flexaoDeVoto = " voto)";
     }
 
-    return strm << asterisco << c.getNomeUrna() << " (" << c.getPartido().getSigla() << ", " << c.getQtdVotos() << flexaoDeVoto;
+    return strm << asterisco << c.getNomeUrna() << " (" << c.getPartido()->getSigla() << ", " << c.getQtdVotos() << flexaoDeVoto;
 }

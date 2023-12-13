@@ -13,7 +13,7 @@ public:
                      const int &numFederacao,
                      const int &genero,
                      const int &cdEleito,
-                     const Partido &partido) : Candidato(nomeUrna, numCandidato, numFederacao, genero, cdEleito, partido){};
+                     Partido* partido) : Candidato(nomeUrna, numCandidato, numFederacao, genero, cdEleito, partido){};
 
     void registraVoto(const int &votos) override;
 

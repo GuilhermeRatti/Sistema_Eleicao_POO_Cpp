@@ -2,6 +2,7 @@
 #include <fstream>  // ifstream
 #include <sstream>  // istringstream
 #include <map>
+#include "CsvReader.hpp"
 #include <memory>
 #include <any>
 #include <exception>
@@ -9,23 +10,15 @@
 #include <stdexcept>
 #include <typeinfo>
 #include <locale>
-#include <iomanip>
-#include<string.h>
+#include <list>
 #include <string>
 
 using namespace std;
 
-
-
-int main()
+int main(int argc, char **argv)
 {
-    string separador = " ";
-    string header = "the moon is blue";
-    istringstream iss(header);
-    string coluna;
-    int index = 0;
-    while (getline(iss, coluna, *separador.c_str()))
-    {
-        cout << coluna << endl;
-    }
+    list<string> tokens = setHeaders();
+    CsvReader csvReader(";", tokens);
+
+
 }
