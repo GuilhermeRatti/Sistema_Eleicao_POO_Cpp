@@ -23,5 +23,6 @@ class CsvReader
 };
 
 list<string> setHeaders();
+void checaArgs(int argc, char **argv);
 
 #endif

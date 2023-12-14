@@ -29,18 +29,33 @@ const int stringToInt(const string &str)
     return i;
 }
 
-list<string> setHeaders(){
+void checaArgs(int argc, char **argv)
+{
+    if (argc < 3)
+    {
+        cout << "Número de arugumentos inválido" << endl;
+        exit(1);
+    }
+    else if (argv[0] != "--estadual" || argv[0] != "--federal")
+    {
+        cout << "Tipo de cargo inválido" << endl;
+    }
+}
+
+
+list<string> setHeaders()
+{
     list<string> headers;
     headers.push_back("CD_CARGO");
     headers.push_back("CD_SITUACAO_CANDIDATO_TOT");
-    headers.push_back("NR_CANDIDATO");
-    headers.push_back("NM_URNA_CANDIDATO");
+    headers.push_back("NR_CANDIDATO"); 
+    headers.push_back("NM_URNA_CANDIDATO"); 
     headers.push_back("NR_PARTIDO");
     headers.push_back("SG_PARTIDO");
-    headers.push_back("NR_FEDERACAO");
-    headers.push_back("DT_NASCIMENTO");
-    headers.push_back("CD_SIT_TOT_TURNO");
-    headers.push_back("CD_GENERO");
+    headers.push_back("NR_FEDERACAO"); 
+    headers.push_back("DT_NASCIMENTO"); 
+    headers.push_back("CD_SIT_TOT_TURNO"); 
+    headers.push_back("CD_GENERO"); 
     headers.push_back("NM_TIPO_DESTINACAO_VOTOS");
     return headers;
 }
@@ -89,7 +104,7 @@ void CsvReader::readHeader(const string &header)
     }
 }
 
-const vector<string>* CsvReader::split(const string &s) const
+const vector<string> *CsvReader::split(const string &s) const
 {
     vector<string> *tokens = new vector<string>();
     string token;
@@ -107,7 +122,7 @@ void setLocaleInt()
     cout.imbue(brLocale);
 }
 
-map<string, any>* CsvReader::readLine(const string &line) const
+map<string, any> *CsvReader::readLine(const string &line) const
 {
     setLocaleInt();
     const vector<string> *tokens = split(line);

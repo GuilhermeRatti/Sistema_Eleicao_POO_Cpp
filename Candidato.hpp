@@ -2,7 +2,7 @@
 #define CANDIDATO_H
 
 #include <string>
-
+#include <ctime>
 using namespace std;
 
 class Partido;
@@ -13,12 +13,13 @@ class Candidato
     int qtdVotos;
     int numCandidato;
     int numFederacao;
-    // string dataNascimento;
+    tm dataNascimento;
     int genero;
     int cdEleito;
     Partido* partido;
 
 public:
+    Candidato() {;}
     Candidato(const string &nomeUrna,
               const int &numCandidato,
               const int &numFederacao,

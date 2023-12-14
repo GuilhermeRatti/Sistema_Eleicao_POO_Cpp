@@ -24,7 +24,7 @@ void CandidatoLegenda::registraVoto(const int &votos)
     }
 }
 
-ostream &operator<<(ostream &strm, const CandidatoLegenda &c)
+ostream &operator<<(ostream &os, const CandidatoLegenda &c)
 {
     string asterisco = "";
     if (c.getNumFederacao() != -1)
@@ -40,5 +40,5 @@ ostream &operator<<(ostream &strm, const CandidatoLegenda &c)
         flexaoDeVoto = " voto)";
     }
 
-    return strm << asterisco << c.getNomeUrna() << " (" << c.getPartido()->getSigla() << ", " << c.getQtdVotos() << flexaoDeVoto;
+    return os << asterisco << c.getNomeUrna() << " (" << c.getPartido()->getSigla() << ", " << c.getQtdVotos() << flexaoDeVoto;
 }

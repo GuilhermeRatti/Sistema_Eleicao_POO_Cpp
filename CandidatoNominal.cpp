@@ -36,7 +36,7 @@ void CandidatoNominal::registraVoto(const int &votos)
     }
 }
 
-ostream &operator<<(ostream &strm, const CandidatoNominal &c)
+ostream &operator<<(ostream &os, const CandidatoNominal &c)
 {
     string asterisco = "";
     if(c.getNumFederacao()!=-1)  asterisco = "*";
@@ -48,5 +48,5 @@ ostream &operator<<(ostream &strm, const CandidatoNominal &c)
         flexaoDeVoto = " voto)";
     }
 
-    return strm << asterisco << c.getNomeUrna() << " (" << c.getPartido()->getSigla() << ", " << c.getQtdVotos() << flexaoDeVoto;
+    return os << asterisco << c.getNomeUrna() << " (" << c.getPartido()->getSigla() << ", " << c.getQtdVotos() << flexaoDeVoto;
 }
