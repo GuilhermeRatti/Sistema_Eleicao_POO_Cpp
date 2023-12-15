@@ -12,6 +12,17 @@ using namespace std;
 int main(int argc, char **argv)
 {
     checaArgs(argc, argv);
+    tipoDeCargo tipo;
+    if (string(argv[1]).compare("--estadual") == 0)
+    {
+        tipo = ESTADUAL;
+    }
+    else
+    {
+        tipo = FEDERAL;
+    }
+    Eleicao e(tipo, argv[4]);
+
     list<string> headers;
     headers.push_back("CD_CARGO");
     headers.push_back("CD_SITUACAO_CANDIDATO_TOT");
@@ -27,8 +38,6 @@ int main(int argc, char **argv)
 
     CsvReader csvReaderCand(";", headers);
 
-    Eleicao e(ESTADUAL, "oi");
-
     string codigoDepStr;
     ifstream inputStream;
 
@@ -36,7 +45,7 @@ int main(int argc, char **argv)
 
     try
     {
-        inputStream.open("candidatos.csv");
+        inputStream.open(string(argv[2]));
         string linha;
         getline(inputStream, linha); // cabeçalho
         csvReaderCand.readHeader(linha);

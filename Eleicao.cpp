@@ -11,23 +11,8 @@ using namespace std;
 
 Eleicao criaEleicao(int argc, char **argv, Eleicao eleicao)
 {
-    // tipoDeCargo tipo;
-    // if (argv[0] == "--estadual")
-    // {
-    //     tipo = ESTADUAL;
-    // }
-    // else
-    // {
-    //     tipo = FEDERAL;
-    // }
-
-    // string caminhoCand = argv[1];
-    // string caminhoVotos = argv[2];
-    // string dataEleicao = argv[3];
-    tipoDeCargo tipo = ESTADUAL;
-    string dataEleicao = "2020-11-15";
-
-    return Eleicao(tipo, dataEleicao);
+    
+    return eleicao;
 }
 
 void Eleicao::registraCandidato(int cd_cargo, int cd_situacao_candidato_tot, int nr_candidato, string nm_urna_candidato, int nr_partido, string sg_partido, int nr_federacao, string dt_nascimento, int cd_sit_tot_turno, int cd_genero, string nm_tipo_destinacao_votos)

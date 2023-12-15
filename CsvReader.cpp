@@ -31,15 +31,41 @@ const int stringToInt(const string &str)
 
 void checaArgs(int argc, char **argv)
 {
-    // if (argc < 3)
-    // {
-    //     cout << "Número de arugumentos inválido" << endl;
-    //     exit(1);
-    // }
-    // else if (argv[0] != "--estadual" || argv[0] != "--federal")
-    // {
-    //     cout << "Tipo de cargo inválido" << endl;
-    // }
+     if(argc < 5){
+        cout << "Argumentos insuficientes" << endl;
+        exit(1);
+     }
+
+    if (string(argv[1]).compare("--estadual") != 0 && string(argv[1]).compare("--federal") != 0){
+        cout << "Tipo de eleição inválido" << endl;
+        exit(1);
+    }
+    else if (string(argv[2]).compare("candidatos.csv") != 0){
+        cout << "Arquivo de candidatos inválido" << endl;
+        exit(1);
+    }
+    else if (string(argv[3]).compare("votacao.csv") != 0){
+        cout << "Arquivo de votos inválido" << endl;
+        exit(1);
+    }
+    else if (string(argv[4]).size() != 10){
+        cout << "Data inválida" << endl;
+        exit(1);
+    }
+    else{
+        for (int i = 0; i < 10; i++){
+            if (i == 4 || i == 7){
+                if (string(argv[4])[i] != '-'){
+                    cout << "Data inválida" << endl;
+                    exit(1);
+                }
+            }
+            else if (string(argv[4])[i] < '0' || string(argv[4])[i] > '9'){
+                cout << "Data inválida" << endl;
+                exit(1);
+            }
+        }
+    }
 }
 
 string iso_8859_1_to_utf8(string &str)
