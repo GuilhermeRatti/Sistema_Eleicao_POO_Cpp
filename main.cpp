@@ -140,5 +140,5 @@ int main(int argc, char **argv)
     gerador.printaRelatorio4();
     gerador.printaRelatorio5();
     gerador.printaRelatorio6();
-    //oi
+    gerador.printaRelatorio9();
 }

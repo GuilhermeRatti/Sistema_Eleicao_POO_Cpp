@@ -29,7 +29,7 @@ void GeradorDeRelatorio::ordenaListas()
     {
         eleicao.ordenaPartidos();
     }
-    for(auto it = eleicao.partidos.begin(); it != eleicao.partidos.end(); it++)
+    for (auto it = eleicao.partidos.begin(); it != eleicao.partidos.end(); it++)
     {
         it->second.ordenaCandidatos();
     }
@@ -169,26 +169,26 @@ void GeradorDeRelatorio::printaRelatorio6() const
 {
     cout << "Votação dos partidos e número de candidatos eleitos:" << endl;
     int i = 0;
-    for(auto it = eleicao.partidosOrdenados.begin(); it != eleicao.partidosOrdenados.end(); it++)
+    for (auto it = eleicao.partidosOrdenados.begin(); it != eleicao.partidosOrdenados.end(); it++)
     {
         Partido p = *it;
-        if(p.getQtdVotosNominais() > 0)
+        if (p.getQtdVotosNominais() > 0)
         {
             string flexaovoto = " voto (";
-            if(p.getQtdVotosTotais() > 1)
+            if (p.getQtdVotosTotais() > 1)
             {
                 flexaovoto = " votos (";
             }
 
             string flexaonominal = " nominai e ";
-            if(p.getQtdVotosNominais() > 1)
+            if (p.getQtdVotosNominais() > 1)
             {
                 flexaonominal = " nominais e ";
             }
 
             cout << (++i) << " - " << p.getSigla() << " - " << p.getNumPartido() << ", " << p.getQtdVotosTotais() << flexaovoto;
             cout << p.getQtdVotosNominais() << flexaonominal << p.getQtdVotosLegenda() << " de legenda), ";
-            if(p.getQtdCandidatosEleitos() > 1)
+            if (p.getQtdCandidatosEleitos() > 1)
             {
                 cout << p.getQtdCandidatosEleitos() << " candidatos eleitos" << endl;
             }
@@ -198,6 +198,7 @@ void GeradorDeRelatorio::printaRelatorio6() const
             }
         }
     }
+    cout << endl;
 }
 
 void GeradorDeRelatorio::printaRelatorio7() const
@@ -223,7 +224,7 @@ void GeradorDeRelatorio::printaRelatorio8() const
             istringstream ss2(eleicao.dataDaEleicao);
             ss2 >> get_time(&dataEleicao, "%d/%m/%Y");
 
-            double idade = difftime(mktime(&dataEleicao), mktime(&dataNascimento))/(60*60*24*365.25);
+            double idade = difftime(mktime(&dataEleicao), mktime(&dataNascimento)) / (60 * 60 * 24 * 365.25);
             i++;
             if (idade < 30)
                 sub_30++;
@@ -239,15 +240,35 @@ void GeradorDeRelatorio::printaRelatorio8() const
     }
     cout << setprecision(2) << fixed;
     cout << "Eleitos, por faixa etária (na data da eleição):" << endl;
-    cout << "      Idade < 30: " << sub_30 << " (" << float(sub_30) / float(eleicao.numeroDeVagas)* 100 << "%)" << endl;
-    cout << "30 <= Idade < 40: " << _30a40 << " (" << float(_30a40) / float(eleicao.numeroDeVagas)* 100 << "%)" << endl;
-    cout << "40 <= Idade < 50: " << _40a50 << " (" << float(_40a50) / float(eleicao.numeroDeVagas)* 100 << "%)" << endl;
-    cout << "50 <= Idade < 60: " << _50a60 << " (" << float(_50a60) / float(eleicao.numeroDeVagas)* 100 << "%)" << endl;
-    cout << "60 <= Idade     : " << acima60 << " (" << float(acima60) / float(eleicao.numeroDeVagas)* 100 << "%)" << endl;
+    cout << "      Idade < 30: " << sub_30 << " (" << float(sub_30) / float(eleicao.numeroDeVagas) * 100 << "%)" << endl;
+    cout << "30 <= Idade < 40: " << _30a40 << " (" << float(_30a40) / float(eleicao.numeroDeVagas) * 100 << "%)" << endl;
+    cout << "40 <= Idade < 50: " << _40a50 << " (" << float(_40a50) / float(eleicao.numeroDeVagas) * 100 << "%)" << endl;
+    cout << "50 <= Idade < 60: " << _50a60 << " (" << float(_50a60) / float(eleicao.numeroDeVagas) * 100 << "%)" << endl;
+    cout << "60 <= Idade     : " << acima60 << " (" << float(acima60) / float(eleicao.numeroDeVagas) * 100 << "%)" << endl;
     cout << endl;
 }
 
 void GeradorDeRelatorio::printaRelatorio9() const
 {
-    // printaRelatorio9 implementation
+    cout << "Eleitos, por gênero:" << endl;
+    int fem = 0, masc = 0;
+    for (auto it = eleicao.candidatosOrdenados.begin(); it != eleicao.candidatosOrdenados.end(); it++)
+    {
+        if (it->verificaEleito() == true)
+        {
+            if (it->getGenero() == 2)
+            {
+                masc++;
+            }
+            else
+            {
+                fem++;
+            }
+        }
+    }
+    cout << setprecision(2) << fixed;
+
+    cout << "Feminino: " << fem << " (" << float(fem) / float(eleicao.numeroDeVagas) * 100 << "%)" << endl;
+    cout << "Masculino: " << masc << " (" << float(masc) / float(eleicao.numeroDeVagas) * 100 << "%)" << endl;
+    cout << endl;
 }
