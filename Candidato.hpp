@@ -17,6 +17,7 @@ class Candidato
     int genero;
     int cdEleito;
     Partido* partido;
+    bool legenda;
 
 public:
     Candidato() {;}
@@ -25,12 +26,14 @@ public:
               const int &numFederacao,
               const int &genero,
               const int &cdEleito,
-              Partido* partido) : nomeUrna(nomeUrna),
+              Partido* partido,
+              bool legenda) : nomeUrna(nomeUrna),
                                         numCandidato(numCandidato),
                                         numFederacao(numFederacao),
                                         genero(genero),
                                         cdEleito(cdEleito),
-                                        partido(partido) { qtdVotos = 0; }
+                                        partido(partido),
+                                        legenda(legenda) { qtdVotos = 0; }
 
     const int &getQtdVotos() const { return qtdVotos; }
     const int &getNumCandidato() const { return numCandidato; }
@@ -43,9 +46,11 @@ public:
     void adicionaVotos(const int &votos) { qtdVotos += votos; }
     bool verificaEleito() const { return (cdEleito == 2 || cdEleito == 3); }
 
-    virtual void registraVoto(const int &votos);
+    void registraVoto(const int &votos);
 
+    const string &printCandidato() const;
     friend bool operator<(const Candidato &c1, const Candidato &c2) { return c1.qtdVotos < c2.qtdVotos; }
+    friend ostream& operator<<(ostream& os, const Candidato& c);
 };
 
 #endif

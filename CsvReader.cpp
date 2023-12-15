@@ -31,15 +31,15 @@ const int stringToInt(const string &str)
 
 void checaArgs(int argc, char **argv)
 {
-    if (argc < 3)
-    {
-        cout << "Número de arugumentos inválido" << endl;
-        exit(1);
-    }
-    else if (argv[0] != "--estadual" || argv[0] != "--federal")
-    {
-        cout << "Tipo de cargo inválido" << endl;
-    }
+    // if (argc < 3)
+    // {
+    //     cout << "Número de arugumentos inválido" << endl;
+    //     exit(1);
+    // }
+    // else if (argv[0] != "--estadual" || argv[0] != "--federal")
+    // {
+    //     cout << "Tipo de cargo inválido" << endl;
+    // }
 }
 
 

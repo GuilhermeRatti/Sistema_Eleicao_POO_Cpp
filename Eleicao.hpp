@@ -33,8 +33,13 @@ private:
     void ordenaPartidos();
 
 public:
-    Eleicao(tipoDeCargo tipo, string dataEleicao);
-    void Eleicao::registraCandidato(int cd_cargo, int cd_situacao_candidato_tot, int nr_candidato, string nm_urna_candidato, int nr_partido, string sg_partido, int nr_federacao, string dt_nascimento, int cd_sit_tot_turno, int cd_genero, string nm_tipo_destinacao_votos);
+    Eleicao(tipoDeCargo tipo, string dataEleicao) : dataDaEleicao(dataEleicao), tipo(tipo)
+    {
+        this->numeroDeVagas = 0;
+        this->totalVotosLegenda = 0;
+        this->totalVotosNominais = 0;
+    };
+    void registraCandidato(int cd_cargo, int cd_situacao_candidato_tot, int nr_candidato, string nm_urna_candidato, int nr_partido, string sg_partido, int nr_federacao, string dt_nascimento, int cd_sit_tot_turno, int cd_genero, string nm_tipo_destinacao_votos);
     void registraVoto();
     void printaRelatorio1();
     void printaRelatorio2();
