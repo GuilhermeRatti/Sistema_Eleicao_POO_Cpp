@@ -38,7 +38,7 @@ void Eleicao::registraCandidato(int cd_cargo, int cd_situacao_candidato_tot, int
     else
         legenda = false;
 
-    Candidato c = Candidato(nm_urna_candidato, nr_candidato, nr_federacao, cd_genero, cd_sit_tot_turno, nr_partido, legenda);
+    Candidato c = Candidato(nm_urna_candidato, nr_candidato, nr_federacao, cd_genero, cd_sit_tot_turno, nr_partido, legenda, dt_nascimento);
 
     totalCandidatos.insert(pair<int, Candidato>(nr_candidato, c));
 }
