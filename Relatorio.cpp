@@ -14,6 +14,7 @@
 void GeradorDeRelatorio::printaRelatorio1() const
 {
     cout << "Número de vagas: " << eleicao.numeroDeVagas << endl;
+    cout << endl;
 }
 
 void GeradorDeRelatorio::ordenaListas()
@@ -52,6 +53,9 @@ void GeradorDeRelatorio::printaRelatorio2() const
         {
             Partido p = eleicao.partidos.find(it->getNrPartido())->second;
             string flexaoVotos = "";
+            string asterisco = "";
+            if (it->getNumFederacao() != -1)
+                asterisco = "*";
             if (it->getQtdVotos() > 1)
             {
                 flexaoVotos = " votos)";
@@ -60,7 +64,7 @@ void GeradorDeRelatorio::printaRelatorio2() const
             {
                 flexaoVotos = " voto)";
             }
-            cout << (++i) << " - " << it->getNomeUrna() << " (" << p.getSigla() << ", " << it->getQtdVotos() << flexaoVotos << endl;
+            cout << (++i) << " - " << asterisco << it->getNomeUrna() << " (" << p.getSigla() << ", " << it->getQtdVotos() << flexaoVotos << endl;
         }
     }
 
@@ -76,6 +80,9 @@ void GeradorDeRelatorio::printaRelatorio3() const
         if (i == eleicao.numeroDeVagas)
             break;
         Partido p = eleicao.partidos.find(it->getNrPartido())->second;
+        string asterisco = "";
+        if (it->getNumFederacao() != -1)
+            asterisco = "*";
         string flexaoVotos = "";
         if (it->getQtdVotos() > 1)
         {
@@ -85,25 +92,59 @@ void GeradorDeRelatorio::printaRelatorio3() const
         {
             flexaoVotos = " voto)";
         }
-        cout << (++i) << " - " << it->getNomeUrna() << " (" << p.getSigla() << ", " << it->getQtdVotos() << flexaoVotos << endl;
+        cout << (++i) << " - " << asterisco << it->getNomeUrna() << " (" << p.getSigla() << ", " << it->getQtdVotos() << flexaoVotos << endl;
     }
+    cout << endl;
 }
 
 void GeradorDeRelatorio::printaRelatorio4() const
 {
-    cout << "Eleitos, que se beneficiaram do sistema proporcional:\n(com sua posição no ranking de mais votados)" << endl;
-    int i=0,j=0;
-    for(auto it = eleicao.candidatosOrdenados.begin(); it != eleicao.candidatosOrdenados.end(); it++)
+    cout << "Teriam sido eleitos se a votação fosse majoritária, e não foram eleitos:\n(com sua posição no ranking de mais votados)" << endl;
+    int i = 0;
+    for (auto it = eleicao.candidatosOrdenados.begin(); it != eleicao.candidatosOrdenados.end(); it++)
     {
-        if(i==eleicao.numeroDeVagas)
+        if (i == eleicao.numeroDeVagas)
             break;
-        if(it->verificaEleito()==true)
+        if (it->verificaEleito() == false)
+        {
+            Partido p = eleicao.partidos.find(it->getNrPartido())->second;
+            string asterisco = "";
+            if (it->getNumFederacao() != -1)
+                asterisco = "*";
+            string flexaoVotos = "";
+            if (it->getQtdVotos() > 1)
+            {
+                flexaoVotos = " votos)";
+            }
+            else
+            {
+                flexaoVotos = " voto)";
+            }
+            cout << (i+1) << " - " << asterisco << it->getNomeUrna() << " (" << p.getSigla() << ", " << it->getQtdVotos() << flexaoVotos << endl;
+        }
+        i++;
+    }
+    cout << endl;
+}
+
+void GeradorDeRelatorio::printaRelatorio5() const
+{
+    cout << "Eleitos, que se beneficiaram do sistema proporcional:\n(com sua posição no ranking de mais votados)" << endl;
+    int i = 0, j = 0;
+    for (auto it = eleicao.candidatosOrdenados.begin(); it != eleicao.candidatosOrdenados.end(); it++)
+    {
+        if (i == eleicao.numeroDeVagas)
+            break;
+        if (it->verificaEleito() == true)
         {
             i++;
-            if(j>=eleicao.numeroDeVagas)
+            if (j >= eleicao.numeroDeVagas)
             {
                 Partido p = eleicao.partidos.find(it->getNrPartido())->second;
                 string flexaoVotos = "";
+                string asterisco = "";
+                if (it->getNumFederacao() != -1)
+                    asterisco = "*";
                 if (it->getQtdVotos() > 1)
                 {
                     flexaoVotos = " votos)";
@@ -112,15 +153,12 @@ void GeradorDeRelatorio::printaRelatorio4() const
                 {
                     flexaoVotos = " voto)";
                 }
-                cout << j+1 << " - " << it->getNomeUrna() << " (" << p.getSigla() << ", " << it->getQtdVotos() << " votos)" << endl;
+                cout << j + 1 << " - " << asterisco << it->getNomeUrna() << " (" << p.getSigla() << ", " << it->getQtdVotos() << flexaoVotos << endl;
             }
         }
+        j++;
     }
-}
-
-void GeradorDeRelatorio::printaRelatorio5() const
-{
-    // printaRelatorio5 implementation
+    cout << endl;
 }
 
 void GeradorDeRelatorio::printaRelatorio6() const
