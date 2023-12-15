@@ -163,7 +163,37 @@ void GeradorDeRelatorio::printaRelatorio5() const
 
 void GeradorDeRelatorio::printaRelatorio6() const
 {
-    // printaRelatorio6 implementation
+    cout << "Votação dos partidos e número de candidatos eleitos:" << endl;
+    int i = 0;
+    for(auto it = eleicao.partidosOrdenados.begin(); it != eleicao.partidosOrdenados.end(); it++)
+    {
+        Partido p = *it;
+        if(p.getQtdVotosNominais() > 0)
+        {
+            string flexaovoto = " voto (";
+            if(p.getQtdVotosTotais() > 1)
+            {
+                flexaovoto = " votos (";
+            }
+
+            string flexaonominal = " nominai e ";
+            if(p.getQtdVotosNominais() > 1)
+            {
+                flexaonominal = " nominais e ";
+            }
+
+            cout << (++i) << " - " << p.getSigla() << " - " << p.getNumPartido() << ", " << p.getQtdVotosTotais() << flexaovoto;
+            cout << p.getQtdVotosNominais() << flexaonominal << p.getQtdVotosLegenda() << " de legenda), ";
+            if(p.getQtdCandidatosEleitos() > 1)
+            {
+                cout << p.getQtdCandidatosEleitos() << " candidatos eleitos" << endl;
+            }
+            else
+            {
+                cout << p.getQtdCandidatosEleitos() << " candidato eleito" << endl;
+            }
+        }
+    }
 }
 
 void GeradorDeRelatorio::printaRelatorio7() const

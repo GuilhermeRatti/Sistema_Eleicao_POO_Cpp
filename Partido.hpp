@@ -14,8 +14,10 @@ class Partido
     int qtdVotosNominais;
     int qtdVotosLegenda;
     bool estaOrdenado;
+    int qtdCandidatosEleitos;
 
 public:
+    Partido() {;}
     Partido(const string sigla, const int numPartido) : sigla(sigla), numPartido(numPartido)
     {
         qtdVotosNominais = 0;
@@ -26,8 +28,10 @@ public:
     const int &getNumPartido() const { return numPartido; }
     const int &getQtdVotosNominais() const { return qtdVotosNominais; }
     const int &getQtdVotosLegenda() const { return qtdVotosLegenda; }
-    const int &getQtdVotosTotais() const;
+    const int getQtdVotosTotais() const { return qtdVotosLegenda + qtdVotosNominais; }
     const bool &getEstaOrdenado() const { return estaOrdenado; }
+    const int &getQtdCandidatosEleitos() const { return qtdCandidatosEleitos; }
+    void addQtdCandidatosEleitos() { qtdCandidatosEleitos++; }
     void adicionaCandidato(const Candidato &candidato);
     const map<int, Candidato> &getCandidatos() const { return candidatos; }
     void registraVotosNominais(const int &votos, const int &nrCandidato);
