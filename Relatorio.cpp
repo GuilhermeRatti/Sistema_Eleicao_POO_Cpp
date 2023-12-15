@@ -3,6 +3,8 @@
 #include <string>  // ifstream
 #include <sstream> // istringstream
 #include <map>
+#include <locale>
+#include <iomanip>
 
 #include "Eleicao.hpp"
 #include "Candidato.hpp"
@@ -15,6 +17,8 @@ void GeradorDeRelatorio::printaRelatorio1() const
 }
 
 void GeradorDeRelatorio::ordenaListas() {
+    locale brLocale("pt_BR.UTF-8");
+    cout.imbue(brLocale);
     if (eleicao.candidatosOrdenados.empty())
     {
         eleicao.ordenaCandidatos();
@@ -38,8 +42,6 @@ void GeradorDeRelatorio::printaRelatorio2() const
     }
 
     cout << "Deputados " << tipoDeDeputados << " eleitos:" << endl;
-
-    // TODO: printar os deputados eleitos
 
     for (auto it = eleicao.totalCandidatos.begin(); it != eleicao.totalCandidatos.end(); it++)
     {

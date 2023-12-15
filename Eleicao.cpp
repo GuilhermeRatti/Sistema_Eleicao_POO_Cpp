@@ -11,7 +11,6 @@ using namespace std;
 
 Eleicao criaEleicao(int argc, char **argv, Eleicao eleicao)
 {
-    
     return eleicao;
 }
 
@@ -49,8 +48,8 @@ void Eleicao::registraVoto(int cdCargo, int nrVotavel, int qtdVotos)
     if (!((this->tipo == ESTADUAL && cdCargo == 7) || (this->tipo == FEDERAL && cdCargo == 6)))
     {
         return;
-    }  
-    
+    }
+
     auto it = totalCandidatos.find(nrVotavel);
     if (it != totalCandidatos.end())
     {

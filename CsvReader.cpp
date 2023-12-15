@@ -48,24 +48,7 @@ void checaArgs(int argc, char **argv)
         cout << "Arquivo de votos inválido" << endl;
         exit(1);
     }
-    else if (string(argv[4]).size() != 10){
-        cout << "Data inválida" << endl;
-        exit(1);
-    }
-    else{
-        for (int i = 0; i < 10; i++){
-            if (i == 4 || i == 7){
-                if (string(argv[4])[i] != '-'){
-                    cout << "Data inválida" << endl;
-                    exit(1);
-                }
-            }
-            else if (string(argv[4])[i] < '0' || string(argv[4])[i] > '9'){
-                cout << "Data inválida" << endl;
-                exit(1);
-            }
-        }
-    }
+    
 }
 
 string iso_8859_1_to_utf8(string &str)
@@ -122,12 +105,6 @@ const vector<string> CsvReader::split(const string &s) const
         tokens.push_back(token);
     }
     return tokens;
-}
-void setLocaleInt()
-{
-    // Configura locale para imprimir números inteiros com separador de milhar e virgula decimal
-    locale brLocale("pt_BR.UTF-8");
-    cout.imbue(brLocale);
 }
 
 map<string, any>CsvReader::readLine(const string &line) const

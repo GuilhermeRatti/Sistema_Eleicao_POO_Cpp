@@ -4,6 +4,7 @@
 #include <map>      // map :-)
 #include "Eleicao.hpp"
 #include "CsvReader.hpp"
+#include "Relatorio.hpp"
 #include <any>
 #include <string>
 
@@ -97,7 +98,7 @@ int main(int argc, char **argv)
 
     try
     {
-        inputStream.open("votacao.csv");
+        inputStream.open(string(argv[3]));
         string linha;
         getline(inputStream, linha); // cabeçalho
         csvReaderVot.readHeader(linha);
@@ -132,4 +133,6 @@ int main(int argc, char **argv)
         }
     }
 
+    GeradorDeRelatorio gerador(e);
+    gerador.printaRelatorio2();
 }
