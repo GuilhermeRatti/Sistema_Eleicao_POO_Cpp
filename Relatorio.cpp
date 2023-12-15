@@ -272,3 +272,12 @@ void GeradorDeRelatorio::printaRelatorio9() const
     cout << "Masculino: " << masc << " (" << float(masc) / float(eleicao.numeroDeVagas) * 100 << "%)" << endl;
     cout << endl;
 }
+
+void GeradorDeRelatorio::printaRelatorio10() const
+{
+    cout << setprecision(2) << fixed;
+    cout << "Total de votos válidos:    " << eleicao.totalVotosLegenda + eleicao.totalVotosNominais << endl;
+    cout << "Total de votos nominais:   " << eleicao.totalVotosNominais << " (" << float(eleicao.totalVotosNominais) / float(eleicao.totalVotosLegenda + eleicao.totalVotosNominais) * 100 << "%)" << endl;
+    cout << "Total de votos de legenda: " << eleicao.totalVotosLegenda << " (" << float(eleicao.totalVotosLegenda) / float(eleicao.totalVotosLegenda + eleicao.totalVotosNominais) * 100 << "%)" << endl;
+    cout << endl;
+}
