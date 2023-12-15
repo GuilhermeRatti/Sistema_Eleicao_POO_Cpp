@@ -68,7 +68,31 @@ void GeradorDeRelatorio::printaRelatorio3() const
 
 void GeradorDeRelatorio::printaRelatorio4() const
 {
-    // printaRelatorio4 implementation
+    cout << "Eleitos, que se beneficiaram do sistema proporcional:\n(com sua posição no ranking de mais votados)" << endl;
+    int i=0,j=0;
+    for(auto it = eleicao.candidatosOrdenados.begin(); it != eleicao.candidatosOrdenados.end(); it++)
+    {
+        if(i==eleicao.numeroDeVagas)
+            break;
+        if(it->verificaEleito()==true)
+        {
+            i++;
+            if(j>=eleicao.numeroDeVagas)
+            {
+                Partido p = eleicao.partidos.find(it->getNrPartido())->second;
+                string flexaoVotos = "";
+                if (it->getQtdVotos() > 1)
+                {
+                    flexaoVotos = " votos)";
+                }
+                else
+                {
+                    flexaoVotos = " voto)";
+                }
+                cout << j+1 << " - " << it->getNomeUrna() << " (" << p.getSigla() << ", " << it->getQtdVotos() << " votos)" << endl;
+            }
+        }
+    }
 }
 
 void GeradorDeRelatorio::printaRelatorio5() const

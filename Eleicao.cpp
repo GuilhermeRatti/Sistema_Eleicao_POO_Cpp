@@ -83,7 +83,12 @@ void Eleicao::registraVoto(int cdCargo, int nrVotavel, int qtdVotos)
 
 void Eleicao::ordenaCandidatos()
 {
-    // ordenaCandidatos implementation
+    for(auto it = totalCandidatos.begin(); it != totalCandidatos.end(); it++)
+    {
+        candidatosOrdenados.push_back(it->second);
+    }
+
+    candidatosOrdenados.sort();
 }
 
 void Eleicao::ordenaPartidos()
