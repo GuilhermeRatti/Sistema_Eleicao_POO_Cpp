@@ -120,7 +120,7 @@ void GeradorDeRelatorio::printaRelatorio4() const
             {
                 flexaoVotos = " voto)";
             }
-            cout << (i+1) << " - " << asterisco << it->getNomeUrna() << " (" << p.getSigla() << ", " << it->getQtdVotos() << flexaoVotos << endl;
+            cout << (i + 1) << " - " << asterisco << it->getNomeUrna() << " (" << p.getSigla() << ", " << it->getQtdVotos() << flexaoVotos << endl;
         }
         i++;
     }
@@ -203,7 +203,44 @@ void GeradorDeRelatorio::printaRelatorio7() const
 
 void GeradorDeRelatorio::printaRelatorio8() const
 {
-    // printaRelatorio8 implementation
+    int sub_30 = 0, _30a40 = 0, _40a50 = 0, _50a60 = 0, acima60 = 0, i = 0;
+
+    for (auto it = eleicao.candidatosOrdenados.begin(); it != eleicao.candidatosOrdenados.end(); it++)
+    {
+        if (i == eleicao.numeroDeVagas)
+            break;
+        if (it->verificaEleito() == true)
+        {
+            tm dataNascimento = {};
+            istringstream ss(it->getDataNascimento());
+            ss >> get_time(&dataNascimento, "%d/%m/%Y");
+
+            tm dataEleicao = {};
+            istringstream ss2(eleicao.dataDaEleicao);
+            ss2 >> get_time(&dataEleicao, "%d/%m/%Y");
+
+            double idade = difftime(mktime(&dataEleicao), mktime(&dataNascimento))/(60*60*24*365.25);
+            i++;
+            if (idade < 30)
+                sub_30++;
+            else if (idade >= 30 && idade < 40)
+                _30a40++;
+            else if (idade >= 40 && idade < 50)
+                _40a50++;
+            else if (idade >= 50 && idade < 60)
+                _50a60++;
+            else
+                acima60++;
+        }
+    }
+    cout << setprecision(2) << fixed;
+    cout << "Eleitos, por faixa etária (na data da eleição):" << endl;
+    cout << "      Idade < 30: " << sub_30 << " (" << float(sub_30) / float(eleicao.numeroDeVagas)* 100 << "%)" << endl;
+    cout << "30 <= Idade < 40: " << _30a40 << " (" << float(_30a40) / float(eleicao.numeroDeVagas)* 100 << "%)" << endl;
+    cout << "40 <= Idade < 50: " << _40a50 << " (" << float(_40a50) / float(eleicao.numeroDeVagas)* 100 << "%)" << endl;
+    cout << "50 <= Idade < 60: " << _50a60 << " (" << float(_50a60) / float(eleicao.numeroDeVagas)* 100 << "%)" << endl;
+    cout << "60 <= Idade     : " << acima60 << " (" << float(acima60) / float(eleicao.numeroDeVagas)* 100 << "%)" << endl;
+    cout << endl;
 }
 
 void GeradorDeRelatorio::printaRelatorio9() const
