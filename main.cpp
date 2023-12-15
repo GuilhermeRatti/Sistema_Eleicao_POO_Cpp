@@ -132,5 +132,4 @@ int main(int argc, char **argv)
         }
     }
 
-    e.printaRelatorio2();
 }
