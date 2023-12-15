@@ -5,7 +5,7 @@
 
 const int &Candidato::registraVoto(const int &votos)
 {
-    if (!legenda)
+    if (legenda==false)
     {
         qtdVotos += votos;
     }

@@ -21,6 +21,7 @@ class GeradorDeRelatorio
         void printaRelatorio7() const;
         void printaRelatorio8() const;
         void printaRelatorio9() const;
+        void printaRelatorio10() const;
 };
 
 #endif
