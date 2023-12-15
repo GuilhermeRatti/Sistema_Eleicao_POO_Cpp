@@ -24,6 +24,7 @@ private:
     map<int, Partido> partidos;
     map<int, Candidato> totalCandidatos;
     list<Candidato> candidatosOrdenados;
+    list<Partido> partidosOrdenadosPorCandMaisVot;
     list<Partido> partidosOrdenados;
     string dataDaEleicao;
     tipoDeCargo tipo;
@@ -33,6 +34,7 @@ private:
 
     void ordenaCandidatos();
     void ordenaPartidos();
+    void ordenaPartidosPorCand();
 
     friend class GeradorDeRelatorio;
 

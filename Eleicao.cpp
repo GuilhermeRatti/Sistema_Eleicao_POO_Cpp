@@ -50,6 +50,11 @@ void Eleicao::registraCandidato(int cd_cargo, int cd_situacao_candidato_tot, int
     Candidato c = Candidato(nm_urna_candidato, nr_candidato, nr_federacao, cd_genero, cd_sit_tot_turno, nr_partido, legenda, dt_nascimento);
 
     totalCandidatos.insert(pair<int, Candidato>(nr_candidato, c));
+
+    if(pt != partidos.end())
+        pt->second.adicionaCandidato(c);
+    else
+        par.adicionaCandidato(c);
 }
 
 void Eleicao::registraVoto(int cdCargo, int nrVotavel, int qtdVotos)
@@ -118,4 +123,19 @@ void Eleicao::ordenaPartidos()
     }
 
     partidosOrdenados.sort(ComparaPartidos);
+}
+
+bool ComparaPartidosPorCand(const Partido &p1, const Partido &p2)
+{
+    return p1.getCandMaisVotado().getQtdVotos() > p2.getCandMaisVotado().getQtdVotos();
+}
+
+void Eleicao::ordenaPartidosPorCand()
+{
+    for (auto it = partidos.begin(); it != partidos.end(); it++)
+    {
+        partidosOrdenadosPorCandMaisVot.push_back(it->second);
+    }
+
+    partidosOrdenadosPorCandMaisVot.sort(ComparaPartidosPorCand);
 }

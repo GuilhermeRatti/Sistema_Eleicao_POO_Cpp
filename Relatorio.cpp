@@ -33,6 +33,7 @@ void GeradorDeRelatorio::ordenaListas()
     {
         it->second.ordenaCandidatos();
     }
+    eleicao.ordenaPartidosPorCand();
 }
 
 void GeradorDeRelatorio::printaRelatorio2() const
@@ -198,11 +199,38 @@ void GeradorDeRelatorio::printaRelatorio6() const
             }
         }
     }
+    cout << endl;
 }
 
 void GeradorDeRelatorio::printaRelatorio7() const
 {
-    // printaRelatorio7 implementation
+    cout << "Primeiro e último colocados de cada partido:" << endl;
+
+    int i=0;
+    for(auto it = eleicao.partidosOrdenadosPorCandMaisVot.begin(); it != eleicao.partidosOrdenadosPorCandMaisVot.end(); it++)
+    {
+        if(it->getQtdDeCandidatos() == 0)
+            continue;
+
+        string flexaomaisvotado = " voto) / ";
+        if(it->getCandMaisVotado().getQtdVotos() > 1)
+        {
+            flexaomaisvotado = " votos) / ";
+        }
+
+        string flexaomenosvotado = " voto)";
+        if(it->getCandMenosVotado().getQtdVotos() > 1)
+        {
+            flexaomenosvotado = " votos)";
+        }
+
+        cout << (++i) << " - " << it->getSigla() << " - " << to_string(it->getNumPartido()) << ", ";
+        cout << it->getCandMaisVotado().getNomeUrna() << " (" << to_string(it->getCandMaisVotado().getNumCandidato()) << ", ";
+        cout << it->getCandMaisVotado().getQtdVotos() << flexaomaisvotado;
+        cout << it->getCandMenosVotado().getNomeUrna() << " (" << to_string(it->getCandMenosVotado().getNumCandidato()) << ", ";
+        cout << it->getCandMenosVotado().getQtdVotos() << flexaomenosvotado << endl;
+    
+    }
 }
 
 void GeradorDeRelatorio::printaRelatorio8() const

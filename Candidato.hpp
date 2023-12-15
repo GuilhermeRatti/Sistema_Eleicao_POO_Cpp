@@ -29,11 +29,11 @@ public:
               const string &dataNascimento) : nomeUrna(nomeUrna),
                                               numCandidato(numCandidato),
                                               numFederacao(numFederacao),
+                                              dataNascimento(dataNascimento),
                                               genero(genero),
                                               cdEleito(cdEleito),
                                               nrPartido(nrPartido),
-                                              legenda(legenda),
-                                              dataNascimento(dataNascimento) { qtdVotos = 0; }
+                                              legenda(legenda) { qtdVotos = 0; }
 
     const int &getQtdVotos() const { return qtdVotos; }
     const int &getNumCandidato() const { return numCandidato; }

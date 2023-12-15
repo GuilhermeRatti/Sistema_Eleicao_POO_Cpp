@@ -73,3 +73,22 @@ void Partido::ordenaCandidatos() {
 
     candidatosOrdenados.sort(ComparadorDeCandidatos);
 }
+
+const Candidato &Partido::getCandMenosVotado() const
+{
+    Candidato c = candidatosOrdenados.back();
+    if(c.verificaLegenda() == true){
+        for(auto it = candidatosOrdenados.rbegin(); it != candidatosOrdenados.rend(); it++)
+        {
+            if(it->verificaLegenda() == false)
+            {
+                return *it;
+            }
+        }
+    }
+    return candidatosOrdenados.back();
+}
+
+void Partido::adicionaCandidato(const Candidato &candidato) {
+    candidatos.insert(pair<int, Candidato>(candidato.getNumCandidato(), candidato));
+}

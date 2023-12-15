@@ -40,6 +40,9 @@ public:
     const int getQtdVotosTotais() const { return qtdVotosLegenda + qtdVotosNominais; }
     const bool &getEstaOrdenado() const { return estaOrdenado; }
     const int &getQtdCandidatosEleitos() const { return qtdCandidatosEleitos; }
+    const Candidato &getCandMaisVotado() const {return candidatosOrdenados.front();}
+    const Candidato &getCandMenosVotado() const;
+    const int getQtdDeCandidatos() const { return candidatos.size(); }
     void addQtdCandidatosEleitos() { qtdCandidatosEleitos++; }
     void adicionaCandidato(const Candidato &candidato);
     const map<int, Candidato> &getCandidatos() const { return candidatos; }
