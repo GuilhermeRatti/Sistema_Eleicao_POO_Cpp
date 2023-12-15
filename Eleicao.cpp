@@ -17,6 +17,8 @@ Eleicao criaEleicao(int argc, char **argv, Eleicao eleicao)
 void Eleicao::registraCandidato(int cd_cargo, int cd_situacao_candidato_tot, int nr_candidato, string nm_urna_candidato, int nr_partido, string sg_partido, int nr_federacao, string dt_nascimento, int cd_sit_tot_turno, int cd_genero, string nm_tipo_destinacao_votos)
 {
     auto pt = partidos.find(nr_partido);
+
+    Partido par;
     if (pt == partidos.end())
     {
         Partido par = Partido(sg_partido, nr_partido);
@@ -30,7 +32,13 @@ void Eleicao::registraCandidato(int cd_cargo, int cd_situacao_candidato_tot, int
         return;
 
     if (cd_sit_tot_turno == 2 || cd_sit_tot_turno == 3)
+    {
         this->numeroDeVagas++;
+        if(pt!=partidos.end())
+            pt->second.addQtdCandidatosEleitos();
+        else
+            par.addQtdCandidatosEleitos();
+    }
 
     bool legenda = false;
     if (nm_tipo_destinacao_votos.compare("Válido (legenda)") == 0)
@@ -96,7 +104,17 @@ void Eleicao::ordenaCandidatos()
     candidatosOrdenados.sort(ComparaCandidatos);
 }
 
+bool ComparaPartidos(const Partido &p1, const Partido &p2)
+{
+    return p1.getQtdVotosTotais() > p2.getQtdVotosTotais();
+}
+
 void Eleicao::ordenaPartidos()
 {
-    // ordenaPartidos implementation
+    for(auto it = partidos.begin(); it != partidos.end(); it++)
+    {
+        partidosOrdenados.push_back(it->second);
+    }
+
+    partidosOrdenados.sort(ComparaPartidos);
 }
