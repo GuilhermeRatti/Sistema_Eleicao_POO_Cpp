@@ -40,7 +40,7 @@ public:
         this->totalVotosNominais = 0;
     };
     void registraCandidato(int cd_cargo, int cd_situacao_candidato_tot, int nr_candidato, string nm_urna_candidato, int nr_partido, string sg_partido, int nr_federacao, string dt_nascimento, int cd_sit_tot_turno, int cd_genero, string nm_tipo_destinacao_votos);
-    void registraVoto();
+    void registraVoto(int cdCargo, int nrVotavel, int qtdVotos);
     void printaRelatorio1();
     void printaRelatorio2();
     void printaRelatorio3();

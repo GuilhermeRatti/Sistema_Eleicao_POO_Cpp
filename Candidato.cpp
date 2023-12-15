@@ -1,7 +1,15 @@
 #include "Candidato.hpp"
 #include "Partido.hpp"
 #include <string>
+#include <iostream>
 
-void Candidato::registraVoto(const int &votos) {
-    return;
+const int &Candidato::registraVoto(const int &votos)
+{
+    if (!legenda)
+    {
+        qtdVotos += votos;
+    }
+
+    return nrPartido;
 }
+

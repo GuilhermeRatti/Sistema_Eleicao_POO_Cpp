@@ -5,8 +5,6 @@
 #include <ctime>
 using namespace std;
 
-class Partido;
-
 class Candidato
 {
     string nomeUrna;
@@ -16,7 +14,7 @@ class Candidato
     tm dataNascimento;
     int genero;
     int cdEleito;
-    Partido* partido;
+    int nrPartido;
     bool legenda;
 
 public:
@@ -26,27 +24,26 @@ public:
               const int &numFederacao,
               const int &genero,
               const int &cdEleito,
-              Partido* partido,
+              int nrPartido,
               bool legenda) : nomeUrna(nomeUrna),
                                         numCandidato(numCandidato),
                                         numFederacao(numFederacao),
                                         genero(genero),
                                         cdEleito(cdEleito),
-                                        partido(partido),
+                                        nrPartido(nrPartido),
                                         legenda(legenda) { qtdVotos = 0; }
 
     const int &getQtdVotos() const { return qtdVotos; }
     const int &getNumCandidato() const { return numCandidato; }
     const string &getNomeUrna() const { return nomeUrna; }
-    const Partido* getPartido() const { return partido; }
-    Partido* getPartido() { return partido; }
+    const int &getNrPartido() const { return nrPartido; }
     // const string &getDataNascimento() const { return dataNascimento; }
     const int &getGenero() const { return genero; }
     const int &getNumFederacao() const { return numFederacao; }
-    void adicionaVotos(const int &votos) { qtdVotos += votos; }
-    bool verificaEleito() const { return (cdEleito == 2 || cdEleito == 3); }
+    const bool verificaEleito() const { return (cdEleito == 2 || cdEleito == 3); }
+    const bool &verificaLegenda() const { return legenda; }
 
-    void registraVoto(const int &votos);
+    const int &registraVoto(const int &votos);
 
     const string &printCandidato() const;
     friend bool operator<(const Candidato &c1, const Candidato &c2) { return c1.qtdVotos < c2.qtdVotos; }
