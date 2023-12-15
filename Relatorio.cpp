@@ -29,6 +29,10 @@ void GeradorDeRelatorio::ordenaListas()
     {
         eleicao.ordenaPartidos();
     }
+    for(auto it = eleicao.partidos.begin(); it != eleicao.partidos.end(); it++)
+    {
+        it->second.ordenaCandidatos();
+    }
 }
 
 void GeradorDeRelatorio::printaRelatorio2() const

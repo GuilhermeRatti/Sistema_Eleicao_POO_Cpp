@@ -4,6 +4,7 @@
 #include <map>
 #include <list>
 #include <ctime>
+#include <iomanip>
 
 #include "Partido.hpp"
 #include "Candidato.hpp"
@@ -49,8 +50,14 @@ bool ComparadorDeCandidatos(const Candidato &c1, const Candidato &c2)
     }
     else if (c1.getQtdVotos() == c2.getQtdVotos())
     {
-        tm dt1 = (c1.getDtNascimento());
-        if (c1.getNrCandidato() < c2.getNrCandidato())
+        tm dt1 = {};
+        istringstream ss(c1.getDataNascimento());
+        ss >> get_time(&dt1, "%d/%m/%Y");
+
+        tm dt2 = {};
+        istringstream ss2(c2.getDataNascimento());
+        ss2 >> get_time(&dt2, "%d/%m/%Y");
+        if (ComparadorDeDatas(dt1, dt2))
         {
             return true;
         }
