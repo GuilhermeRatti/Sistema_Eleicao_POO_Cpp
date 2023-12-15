@@ -34,8 +34,9 @@ void Eleicao::registraCandidato(int cd_cargo, int cd_situacao_candidato_tot, int
     if (cd_sit_tot_turno == 2 || cd_sit_tot_turno == 3)
     {
         this->numeroDeVagas++;
-        if(pt!=partidos.end())
+        if (pt != partidos.end())
             pt->second.addQtdCandidatosEleitos();
+
         else
             par.addQtdCandidatosEleitos();
     }
@@ -96,7 +97,7 @@ bool ComparaCandidatos(const Candidato &c1, const Candidato &c2)
 
 void Eleicao::ordenaCandidatos()
 {
-    for(auto it = totalCandidatos.begin(); it != totalCandidatos.end(); it++)
+    for (auto it = totalCandidatos.begin(); it != totalCandidatos.end(); it++)
     {
         candidatosOrdenados.push_back(it->second);
     }
@@ -111,7 +112,7 @@ bool ComparaPartidos(const Partido &p1, const Partido &p2)
 
 void Eleicao::ordenaPartidos()
 {
-    for(auto it = partidos.begin(); it != partidos.end(); it++)
+    for (auto it = partidos.begin(); it != partidos.end(); it++)
     {
         partidosOrdenados.push_back(it->second);
     }

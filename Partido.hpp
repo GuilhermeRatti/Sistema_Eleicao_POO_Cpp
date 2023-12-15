@@ -2,6 +2,7 @@
 #define PARTIDO_H
 
 #include <map>
+#include <list>
 #include "Candidato.hpp"
 
 using namespace std;
@@ -9,6 +10,7 @@ using namespace std;
 class Partido
 {
     map<int, Candidato> candidatos;
+    list<Candidato> candidatosOrdenados;
     string sigla;
     int numPartido;
     int qtdVotosNominais;
@@ -17,11 +19,18 @@ class Partido
     int qtdCandidatosEleitos;
 
 public:
-    Partido() {;}
+    Partido()
+    {
+        qtdVotosNominais = 0;
+        qtdVotosLegenda = 0;
+        qtdCandidatosEleitos = 0;
+        estaOrdenado = false;
+    }
     Partido(const string sigla, const int numPartido) : sigla(sigla), numPartido(numPartido)
     {
         qtdVotosNominais = 0;
         qtdVotosLegenda = 0;
+        qtdCandidatosEleitos = 0;
         estaOrdenado = false;
     }
     const string &getSigla() const { return sigla; }
