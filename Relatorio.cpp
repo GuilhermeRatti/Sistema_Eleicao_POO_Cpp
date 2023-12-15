@@ -16,7 +16,8 @@ void GeradorDeRelatorio::printaRelatorio1() const
     cout << "Número de vagas: " << eleicao.numeroDeVagas << endl;
 }
 
-void GeradorDeRelatorio::ordenaListas() {
+void GeradorDeRelatorio::ordenaListas()
+{
     locale brLocale("pt_BR.UTF-8");
     cout.imbue(brLocale);
     if (eleicao.candidatosOrdenados.empty())
@@ -42,20 +43,25 @@ void GeradorDeRelatorio::printaRelatorio2() const
     }
 
     cout << "Deputados " << tipoDeDeputados << " eleitos:" << endl;
-
-    for (auto it = eleicao.totalCandidatos.begin(); it != eleicao.totalCandidatos.end(); it++)
+    int i = 0;
+    for (auto it = eleicao.candidatosOrdenados.begin(); it != eleicao.candidatosOrdenados.end(); it++)
     {
-        Partido p = eleicao.partidos.find(it->second.getNrPartido())->second;
-        string flexaoVotos = "";
-        if (it->second.getQtdVotos() > 1)
+        if (i == eleicao.numeroDeVagas)
+            break;
+        if (it->verificaEleito())
         {
-            flexaoVotos = " votos)";
+            Partido p = eleicao.partidos.find(it->getNrPartido())->second;
+            string flexaoVotos = "";
+            if (it->getQtdVotos() > 1)
+            {
+                flexaoVotos = " votos)";
+            }
+            else
+            {
+                flexaoVotos = " voto)";
+            }
+            cout << (i++) << " - " << it->getNomeUrna() << " (" << p.getSigla() << ", " << it->getQtdVotos() << flexaoVotos << endl;
         }
-        else
-        {
-            flexaoVotos = " voto)";
-        }
-        cout << it->second.getNomeUrna() << " (" << p.getSigla() << ", " << it->second.getQtdVotos() << flexaoVotos << endl;
     }
 
     cout << endl;
@@ -63,7 +69,24 @@ void GeradorDeRelatorio::printaRelatorio2() const
 
 void GeradorDeRelatorio::printaRelatorio3() const
 {
-    // printaRelatorio3 implementation
+    cout << "Candidatos mais votados (em ordem decrescente de votação e respeitando número de vagas):" << endl;
+    int i = 0;
+    for (auto it = eleicao.candidatosOrdenados.begin(); it != eleicao.candidatosOrdenados.end(); it++)
+    {
+        if (i == eleicao.numeroDeVagas)
+            break;
+        Partido p = eleicao.partidos.find(it->getNrPartido())->second;
+        string flexaoVotos = "";
+        if (it->getQtdVotos() > 1)
+        {
+            flexaoVotos = " votos)";
+        }
+        else
+        {
+            flexaoVotos = " voto)";
+        }
+        cout << (i++) << " - " << it->getNomeUrna() << " (" << p.getSigla() << ", " << it->getQtdVotos() << flexaoVotos << endl;
+    }
 }
 
 void GeradorDeRelatorio::printaRelatorio4() const
