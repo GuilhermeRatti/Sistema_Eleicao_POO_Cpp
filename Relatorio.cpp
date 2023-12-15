@@ -60,7 +60,7 @@ void GeradorDeRelatorio::printaRelatorio2() const
             {
                 flexaoVotos = " voto)";
             }
-            cout << (i++) << " - " << it->getNomeUrna() << " (" << p.getSigla() << ", " << it->getQtdVotos() << flexaoVotos << endl;
+            cout << (++i) << " - " << it->getNomeUrna() << " (" << p.getSigla() << ", " << it->getQtdVotos() << flexaoVotos << endl;
         }
     }
 
@@ -85,7 +85,7 @@ void GeradorDeRelatorio::printaRelatorio3() const
         {
             flexaoVotos = " voto)";
         }
-        cout << (i++) << " - " << it->getNomeUrna() << " (" << p.getSigla() << ", " << it->getQtdVotos() << flexaoVotos << endl;
+        cout << (++i) << " - " << it->getNomeUrna() << " (" << p.getSigla() << ", " << it->getQtdVotos() << flexaoVotos << endl;
     }
 }
 

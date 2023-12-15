@@ -81,6 +81,11 @@ void Eleicao::registraVoto(int cdCargo, int nrVotavel, int qtdVotos)
     }
 }
 
+bool ComparaCandidatos(const Candidato &c1, const Candidato &c2)
+{
+    return c1.getQtdVotos() > c2.getQtdVotos();
+}
+
 void Eleicao::ordenaCandidatos()
 {
     for(auto it = totalCandidatos.begin(); it != totalCandidatos.end(); it++)
@@ -88,7 +93,7 @@ void Eleicao::ordenaCandidatos()
         candidatosOrdenados.push_back(it->second);
     }
 
-    candidatosOrdenados.sort();
+    candidatosOrdenados.sort(ComparaCandidatos);
 }
 
 void Eleicao::ordenaPartidos()

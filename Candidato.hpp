@@ -46,7 +46,6 @@ public:
     const int &registraVoto(const int &votos);
 
     const string &printCandidato() const;
-    friend bool operator<(const Candidato &c1, const Candidato &c2) { return c1.qtdVotos < c2.qtdVotos; }
     friend ostream& operator<<(ostream& os, const Candidato& c);
 };
 
